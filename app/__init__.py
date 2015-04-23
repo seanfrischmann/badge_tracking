@@ -12,16 +12,13 @@ from contextlib import closing
 from flask import Flask, request, session, g, redirect, url_for, \
 		abort, render_template, flash
 
-# Configuration
-DATABASE = 'app/badge.db'
-DEBUG = True
-SECRET_KEY = 'development key'
-USERNAME = 'admin'
-PASSWORD = 'default'
 
 #create app
 app = Flask(__name__)
-app.config.from_object(__name__)
+
+# Configuration
+app.config.from_object('config')
+#app.config.from_object(__name__)
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 
 def connect_db():
