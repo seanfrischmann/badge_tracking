@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block body %}
+	{% if session.logged_in %}
+		<div id="admin">
+			<h2><a href="{{ url_for('add_employee') }}" title="Add employee to system">Add Employee</a></h2>
+			<h2><a href="{{ url_for('remove_update') }}" title="Remove or update employee in system">Remove or Update Employee</a></h2>
+		</div>
+	{% else %}
+		<h2>Please Login</h2>
+		<ul class=entries>
+		<li><em>Security Clearance Required</em>
+		</ul>
+	{% endif %}
+	{% for entry in entries %}
+	{% else %}
+	{% endfor %}
+{% endblock %}

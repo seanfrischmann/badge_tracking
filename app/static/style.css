@@ -1,0 +1,63 @@
+body{
+	color: white;
+	font-family: sans-serif;
+	background-image: url("images/background.jpg");
+}
+#front{
+	text-align: center;
+}
+#home{
+	text-align: right;
+	float: right;
+}
+form h2{
+	padding: 0.8em;
+}
+form{
+	margin-left: 15em;
+	margin-right: 15em;
+	margin-bottom: 1em;
+	font-size: 0.9em;
+	border: 3px groove #ccc;
+	font-weight: bold;
+	padding: 3.8em;
+	text-align: center;
+}
+a:hover{
+	background: black;
+}
+h2,a,a:visited{
+	COLOR: #FFDead;
+}
+
+h1, h4,a.home{
+	COLOR: #00BFFF;
+}
+h2{ 
+	font-family: "Papyrus";
+	margin: 0;
+	font-size: 1.2em;
+}
+h1{
+	font-family: "book antiqua";
+	text-align: center;
+	font-weight: normal;
+}
+.page{
+	margin: 2em auto;
+	width: 55em;
+	border: 5px solid #ccc;
+	padding: 0.8em;
+	background: white;
+	background-image: url("images/dark_embroidery.png");
+}
+.metanav{
+	text-align: center;
+}
+.flash{
+	background: #cee5F5;
+	COLOR: BLACK;
+	padding: 0.5em;
+	border: 1px solid #aacbe2;
+}
+.error          { background: #f0d6d6; padding: 0.5em; }

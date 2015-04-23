@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block body %}
+	<h1>Adding an Employee</h1>
+	{% if session.logged_in %}
+	<div id="form">
+		<form action="{{ url_for('post_employee') }}" method="post" >
+			<h2>Employee Name</h2>
+			<input type="text" size="30" name="Employee_Name">
+			<h2>Employee Number</h2>
+			<input type="number" size="30" name="Employee_Id">
+			<h2>Badge Number</h2>
+			<input type="number" size="30" name="Nfc_Id">
+			<h2>Department</h2>
+			<input type="text" size="30" name="Department">
+			<h2>Clearence Level</h2>
+			<input type="number" size="30" name="Clearence_Level">
+			<br><br><input type="submit" value="Submit">
+		</form>
+	</div>
+	{% else %}
+		<h2>Please Login</h2>
+		<ul class=entries>
+		<li><em>Security Clearance Required</em>
+		</ul>
+	{% endif %}
+{% endblock %}
