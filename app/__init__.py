@@ -8,6 +8,7 @@
 
 # Imports
 import sqlite3
+import app.db_queries as query
 from contextlib import closing
 from flask import Flask, request, session, g, redirect, url_for, \
 		abort, render_template, flash
@@ -50,47 +51,37 @@ def remove_update():
 def update_employee():
 	if not session.get('logged_in'):
 		abort(401)
-	try:
-		flash('Employee was successfully updated')
-	except ValueError:
-		flash('There was a system error, Employee was not updated')
+	data = {'database':g.db,
+			'Employee_Name':request.form['Employee_Name'].upper(), 
+			'Employee_Id':request.form['Employee_Id'], 
+			'Nfc_Id':request.form['Nfc_Id'], 
+			'Department':request.form['Department'], 
+			'Clearence_Level':request.form['Clearence_Level']}
+	flash(query.update(data))
 	return redirect(url_for('index'))
 
 @app.route('/delete_employee', methods=['POST'])
 def delete_employee():
 	if not session.get('logged_in'):
 		abort(401)
-	try:
-		g.db.execute("DELETE FROM Employee_Data WHERE Employee_Name = '"+request.form['Employee_Name']+"'")
-		g.db.commit()
-		flash('Employee was successfully removed')
-	except ValueError:
-		flash('There was a system error, Employee was not removed')
+	data = {'database':g.db,
+			'Employee_Name':request.form['Employee_Name'].upper(), 
+			'Employee_Id':request.form['Employee_Id']}
+	flash(query.delete(data))
 	return redirect(url_for('index'))
 
 @app.route('/post_employee', methods=['POST'])
 def post_employee():
 	if not session.get('logged_in'):
 		abort(401)
-	try:
-		g.db.execute("insert into Employee_Data (Employee_Name, Employee_Id, Nfc_Id, Department, Clearence_Level, Coordinates ) values (?,?,?,?,?,'0')", 
-				[request.form['Employee_Name'], request.form['Employee_Id'], request.form['Nfc_Id'], request.form['Department'], request.form['Clearence_Level']])
-		g.db.commit()
-		flash('New entry was successfully posted')
-	except ValueError:
-		flash('There was a system error, Employee was not added')
+	data = {'database':g.db,
+			'Employee_Name':request.form['Employee_Name'].upper(), 
+			'Employee_Id':request.form['Employee_Id'], 
+			'Nfc_Id':request.form['Nfc_Id'], 
+			'Department':request.form['Department'], 
+			'Clearence_Level':request.form['Clearence_Level']}
+	flash(query.post(data))
 	return redirect(url_for('index'))
-'''
-@app.route('/request_position', methods=['POST'])
-def request_position():
-	if not session.get('logged_in'):
-		abort(401)
-	g.db.execute('insert into entries (title, ingredients, review) values (?,?,?)', 
-			[request.form['title'], request.form['ingredients'], request.form['review']])
-	g.db.commit()
-	flash('New entry was successfully posted')
-	return redirect(url_for('request_position'))
-'''
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
