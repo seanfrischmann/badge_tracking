@@ -67,6 +67,14 @@ def post(data):
 		return 'There was a system error, Employee was not added'
 
 def update(data):
+	'''
+	test = {
+			'Employee_Name':data['Employee_Name'],
+			'Employee_Id':data['Employee_Id'],
+			'database':data['database'],
+			'Coordinates':10}
+	updateEmployeeLocation(test)
+	'''
 	try:
 		message = 'Employee was successfully updated'
 		if checkEmployee(data, 'update'):
@@ -92,3 +100,31 @@ def update(data):
 		return message
 	except:
 		return 'There was a system error, Employee was not added'
+
+def getEmployeeList(database):
+	cur = database.execute("SELECT Employee_Name, Employee_Id, Department FROM Employee_Data")
+	empList = [(row[0], row[1], row[2]) for row in cur.fetchall()]
+	return empList
+
+def getEmployee(data):
+	cur = data['database'].execute(
+			"SELECT Employee_Name, Employee_Id, Department FROM Employee_Data "
+			+"WHERE Employee_Id = ?", [data['Employee_Id']])
+	empList = [(row[0], row[1], row[2]) for row in cur.fetchall()]
+	return empList
+
+def getEmployeeLocation(data):
+	cur = data['database'].execute(
+			"SELECT Coordinates FROM Employee_Data WHERE "
+			+"Employee_Name = ? AND Employee_Id = ?",
+			[data['Employee_Name'],data['Employee_Id']])
+	empLocation = [row[0] for row in cur.fetchall()] 
+	return empLocation
+	
+def updateEmployeeLocation(data):
+	data['database'].execute(
+			"UPDATE Employee_Data SET Coordinates = ?, Timestamp = CURRENT_TIMESTAMP "
+			+"WHERE Employee_Name = ? AND Employee_Id = ?",
+			[data['Coordinates'],data['Employee_Name'],data['Employee_Id']])
+	data['database'].commit()
+
