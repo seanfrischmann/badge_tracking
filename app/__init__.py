@@ -35,11 +35,9 @@ def teardown_request(exception):
 	if db is not None:
 		db.close()
 
-
 @app.route('/')
 def index():
 	return render_template('index.html')
-
 
 @app.route('/get_employeeList')
 def get_employeeList():
@@ -60,6 +58,22 @@ def add_employee():
 @app.route('/remove_update')
 def remove_update():
 	return render_template('remove_update.html')
+
+@app.route('/test_scan_nfc')
+def test_scan_nfc():
+	return render_template('test_scan_nfc.html')
+
+@app.route('/post_nfcScan', methods=['POST'])
+def post_nfcScan():
+	data = {'database':g.db,
+			'Token':request.form['Token'],
+			'Request_Name':'Nfc_Scan',
+			'Employee_Id':request.form['Employee_Id'], 
+			'Room_Id':request.form['Room_Id']}
+	if not query.checkApiToken(data):
+		abort(401)
+	flash(query.checkEmployeeAccess(data))
+	return redirect(url_for('index'))
 
 @app.route('/update_employee', methods=['POST'])
 def update_employee():

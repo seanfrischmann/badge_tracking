@@ -6,13 +6,40 @@
 # Badge Tracking App
 # ===========================================================================
 
-
-
 def checkData(data):
 	for value in data:
 		if value is '':
 			return True
 	return False
+
+def checkApiToken(data):
+	token = data['database'].execute(
+			"SELECT Token FROM API_Tokens WHERE"+
+			" Request_Name = ?", [data['Request_Name']])
+	token = [row[0] for row in token.fetchall()]
+	if token[0] == data['Token']:
+		return True
+	return False
+
+def checkDepartment(data):
+	dpmt = data['database'].execute(
+			"SELECT CASE WHEN EXISTS ("+
+			" SELECT Department FROM Rooms WHERE"+
+			" Department = ?)"+
+			" THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT) END"
+			, [data['Department']])
+	dpmt = [row[0] for row in dpmt.fetchall()]
+	return bool(dpmt[0])
+
+def checkEmployeeAccess(data):
+	dpmt = data['database'].execute(
+			"SELECT CASE WHEN EXISTS ("+
+			" SELECT * FROM Employee_Access WHERE"+
+			" Employee_Id = ? AND Room_Id = ?)"+
+			" THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT) END"
+			, [data['Employee_Id'],data['Room_Id']])
+	dpmt = [row[0] for row in dpmt.fetchall()]
+	return bool(dpmt[0])
 
 def checkEmployee(data, flag):
 	if (flag is 'update') or (flag is 'delete'):
@@ -32,6 +59,19 @@ def checkEmployee(data, flag):
 	emp_id = [row[0] for row in emp_id.fetchall()]
 	return bool(emp_id[0])
 
+def postEmployeeAcess(data):
+	data['database'].execute("INSERT INTO Employee_Access "
+			+"(Room_Id,Employee_Id) SELECT R.Room_Id, E.Employee_Id "
+			+"FROM Employee_Data E JOIN Rooms R on "
+			+"R.Department = ? and E.Employee_Id = ?" , [data['Department'],data['Employee_Id']])
+	data['database'].commit()
+
+def deleteEmployeeAccess(data):
+	data['database'].execute(
+			"DELETE FROM Employee_Access WHERE "+
+			"Employee_Id = ?", [data['Employee_Id']])
+	data['database'].commit()
+
 def delete(data):
 	if checkData(data):
 		return 'Please fill out all fields'
@@ -42,6 +82,7 @@ def delete(data):
 					"DELETE FROM Employee_Data WHERE Employee_Name = ?"+
 					" AND Employee_Id = ?", [data['Employee_Name'], data['Employee_Id']])
 			data['database'].commit()
+			deleteEmployeeAccess(data)
 		else:
 			message = 'Employee does not exist'
 		return message
@@ -55,6 +96,8 @@ def post(data):
 		message = 'Employee was successfully added'
 		if checkEmployee(data, 'post'):
 			message = 'Employee Id already exists'
+		elif not checkDepartment(data):
+			message = 'Invalid Department'
 		else:
 			data['database'].execute("insert into Employee_Data "
 			+"(Employee_Name, Employee_Id, Nfc_Id, Department, Clearence_Level, Coordinates ) "
@@ -62,19 +105,12 @@ def post(data):
 					[data['Employee_Name'], data['Employee_Id'], data['Nfc_Id'], 
 						data['Department'], data['Clearence_Level']])
 			data['database'].commit()
+			postEmployeeAcess(data)
 		return message
 	except:
 		return 'There was a system error, Employee was not added'
 
 def update(data):
-	'''
-	test = {
-			'Employee_Name':data['Employee_Name'],
-			'Employee_Id':data['Employee_Id'],
-			'database':data['database'],
-			'Coordinates':10}
-	updateEmployeeLocation(test)
-	'''
 	try:
 		message = 'Employee was successfully updated'
 		if checkEmployee(data, 'update'):
@@ -95,6 +131,8 @@ def update(data):
 					+stmt+" WHERE Employee_Name = ? AND Employee_Id = ?",
 					[data['Employee_Name'], data['Employee_Id']])
 			data['database'].commit()
+			deleteEmployeeAccess(data)
+			postEmployeeAcess(data)
 		else:
 			message = 'Employee does not exists'
 		return message
