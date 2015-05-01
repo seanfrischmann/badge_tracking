@@ -44,13 +44,19 @@ def index():
 def get_employeeList():
 	return query.getEmployeeList(g.db)
 
+@app.route('/get_employeeLocation/<Employee_Id>')
+def get_employeeLocation(Employee_Id):
+	data = {
+			'database':g.db,
+			'Employee_Id':Employee_Id}
+	return query.getEmployeeLocation(data)
+
 @app.route('/get_employee/<Employee_Id>')
 def get_employee(Employee_Id):
 	data = {
 			'database':g.db,
 			'Employee_Id':Employee_Id}
-	flash(query.getEmployee(data))
-	return redirect(url_for('index'))
+	return query.getEmployee(data)
 
 @app.route('/add_employee')
 def add_employee():
@@ -71,12 +77,11 @@ def post_nfcScan():
 			'Request_Name':'Nfc_Scan',
 			'Employee_Id':request.form['Employee_Id'], 
 			'Room_Id':request.form['Room_Id']}
-	if not query.checkApiToken(data):
-		abort(401)
-	check = query.checkEmployeeAccess(data)
-	if check:
-		query.updateEmployeeLocation(data)
-	return check
+	if query.checkApiToken(data):
+		ret = query.checkEmployeeAccess(data)
+	else:
+		ret = False
+	return ret
 
 @app.route('/post_wifiScan', methods=['POST'])
 def post_wifiScan():
@@ -87,7 +92,9 @@ def post_wifiScan():
 			'trimmedResults':request.form['trimmedResults']}
 	if not query.checkApiToken(data):
 		abort(401)
-	data['Coordinates'] = coor.coordinates(data['trimmedResults'])
+	coordinates = coor.coordinates(data['trimmedResults'])
+	data['Coordinate_X'] = coordinates[0]
+	data['Coordinate_Y'] = coordinates[1]
 	query.updateEmployeeLocation(data)
 
 @app.route('/update_employee', methods=['POST'])

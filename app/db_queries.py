@@ -100,8 +100,8 @@ def post(data):
 			message = 'Invalid Department'
 		else:
 			data['database'].execute("insert into Employee_Data "
-			+"(Employee_Name, Employee_Id, Nfc_Id, Department, Clearence_Level, Coordinates ) "
-			+"values (?,?,?,?,?,'0')", 
+			+"(Employee_Name, Employee_Id, Nfc_Id, Department, Clearence_Level) "
+			+"values (?,?,?,?,?)", 
 					[data['Employee_Name'], data['Employee_Id'], data['Nfc_Id'], 
 						data['Department'], data['Clearence_Level']])
 			data['database'].commit()
@@ -153,16 +153,18 @@ def getEmployee(data):
 
 def getEmployeeLocation(data):
 	cur = data['database'].execute(
-			"SELECT Coordinates FROM Employee_Data WHERE "
-			+"Employee_Name = ? AND Employee_Id = ?",
-			[data['Employee_Name'],data['Employee_Id']])
-	empLocation = [row[0] for row in cur.fetchall()] 
+			"SELECT Coordinate_X, Coordinate_Y FROM Employee_Data WHERE "
+			+"Employee_Id = ?",
+			[data['Employee_Id']])
+	empLocation = [[row[0],row[1]] for row in cur.fetchall()] 
+	empLocation = empLocation[0]
 	return empLocation
 	
 def updateEmployeeLocation(data):
 	data['database'].execute(
-			"UPDATE Employee_Data SET Coordinates = ?, Timestamp = CURRENT_TIMESTAMP "
+			"UPDATE Employee_Data SET Coordinate_X = ?, Coordinate_Y = ?, "
+			+"Timestamp = CURRENT_TIMESTAMP "
 			+"WHERE Employee_Id = ?",
-			[data['Coordinates'],data['Employee_Id']])
+			[data['Coordinate_X'], data['Coordinate_Y'],data['Employee_Id']])
 	data['database'].commit()
 

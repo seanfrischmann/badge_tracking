@@ -5,7 +5,8 @@
 	Department VARCHAR(30) NOT NULL,
 	Clearence_Level INT NOT NULL
 	CHECK (Clearence_Level >= 0 and Clearence_Level <= 3),
-	Coordinates VARCHAR(10) NOT NULL,
+	Coordinate_X INT,
+	Coordinate_y INT,
 	Timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
