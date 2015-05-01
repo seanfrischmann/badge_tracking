@@ -12,7 +12,7 @@ import app.db_queries as query
 import app.coordinates as coor
 from contextlib import closing
 from flask import Flask, request, session, g, redirect, url_for, \
-		abort, render_template, flash
+		abort, render_template, flash, jsonify
 
 
 #create app
@@ -42,21 +42,21 @@ def index():
 
 @app.route('/get_employeeList')
 def get_employeeList():
-	return query.getEmployeeList(g.db)
+	return jsonify(empList=query.getEmployeeList(g.db))
 
 @app.route('/get_employeeLocation/<Employee_Id>')
 def get_employeeLocation(Employee_Id):
 	data = {
 			'database':g.db,
 			'Employee_Id':Employee_Id}
-	return query.getEmployeeLocation(data)
+	return jsonify(emp=query.getEmployeeLocation(data))
 
 @app.route('/get_employee/<Employee_Id>')
 def get_employee(Employee_Id):
 	data = {
 			'database':g.db,
 			'Employee_Id':Employee_Id}
-	return query.getEmployee(data)
+	return jsonify(emp=query.getEmployee(data))
 
 @app.route('/add_employee')
 def add_employee():
