@@ -162,7 +162,7 @@ def getEmployeeLocation(data):
 def updateEmployeeLocation(data):
 	data['database'].execute(
 			"UPDATE Employee_Data SET Coordinates = ?, Timestamp = CURRENT_TIMESTAMP "
-			+"WHERE Employee_Name = ? AND Employee_Id = ?",
-			[data['Coordinates'],data['Employee_Name'],data['Employee_Id']])
+			+"WHERE Employee_Id = ?",
+			[data['Coordinates'],data['Employee_Id']])
 	data['database'].commit()
 

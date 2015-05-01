@@ -9,6 +9,7 @@
 # Imports
 import sqlite3
 import app.db_queries as query
+import app.coordinates as coor
 from contextlib import closing
 from flask import Flask, request, session, g, redirect, url_for, \
 		abort, render_template, flash
@@ -72,8 +73,22 @@ def post_nfcScan():
 			'Room_Id':request.form['Room_Id']}
 	if not query.checkApiToken(data):
 		abort(401)
-	flash(query.checkEmployeeAccess(data))
-	return redirect(url_for('index'))
+	check = query.checkEmployeeAccess(data)
+	if check:
+		query.updateEmployeeLocation(data)
+	return check
+
+@app.route('/post_wifiScan', methods=['POST'])
+def post_wifiScan():
+	data = {'database':g.db,
+			'Token':request.form['Token'],
+			'Request_Name':'Wifi_Scan',
+			'Employee_Id':request.form['Employee_Id'], 
+			'trimmedResults':request.form['trimmedResults']}
+	if not query.checkApiToken(data):
+		abort(401)
+	data['Coordinates'] = coor.coordinates(data['trimmedResults'])
+	query.updateEmployeeLocation(data)
 
 @app.route('/update_employee', methods=['POST'])
 def update_employee():

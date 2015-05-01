@@ -1,6 +1,6 @@
 ﻿CREATE TABLE Employee_Data(
 	Employee_Id INT PRIMARY KEY,
-	Nfc_Id INT NOT NULL UNIQUE,
+	Nfc_Id VARCHAR(20) NOT NULL UNIQUE,
 	Employee_Name VARCHAR(30) NOT NULL,
 	Department VARCHAR(30) NOT NULL,
 	Clearence_Level INT NOT NULL
@@ -24,13 +24,12 @@ CREATE TABLE Security_Personnel(
 );
 
 CREATE TABLE Rooms(
-	Room_Id INT PRIMARY KEY,
-	Department VARCHAR(30) NOT NULL,
-	Coordinates VARCHAR(10) NOT NULL
+	Room_Id VARCHAR(20) PRIMARY KEY,
+	Department VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE Employee_Access(
-	Room_Id INT,
+	Room_Id VARCHAR(20),
 	Employee_Id INT,
 	FOREIGN KEY (Employee_Id) REFERENCES Badge_Data(Employee_Id),
 	FOREIGN KEY (Room_Id) REFERENCES Room_Access(Room_Id)
