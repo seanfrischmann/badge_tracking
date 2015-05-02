@@ -130,6 +130,8 @@ def post_employee():
 			'Nfc_Id':request.form['Nfc_Id'], 
 			'Department':request.form['Department'], 
 			'Clearence_Level':request.form['Clearence_Level']}
+	if data['Department'] == 'security':
+		data['Password'] = request.form['Password']
 	flash(query.post(data))
 	return redirect(url_for('index'))
 
@@ -137,14 +139,19 @@ def post_employee():
 def login():
 	error = None
 	if request.method == 'POST':
-		if request.form['username'] != app.config['USERNAME']:
-			error = 'Invalid username'
-		elif request.form['password'] != app.config['PASSWORD']:
-			error = 'Invalid password'
-		else:
+		data = {
+				'database':g.db,
+				'username':request.form['username'],
+				'password':request.form['password'],
+				'user_conf':app.config['USERNAME'],
+				'pass_conf':app.config['PASSWORD']
+				}
+		if query.verifyLogin(data):
 			session['logged_in'] = True
 			flash('You were logged in')
 			return redirect(url_for('index'))
+		else:
+			error = 'Invalid username or password!'
 	return render_template('login.html', error=error)
 
 @app.route('/logout')

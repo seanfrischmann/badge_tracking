@@ -21,15 +21,20 @@ def checkApiToken(data):
 		return True
 	return False
 
-def checkDepartment(data):
+def verifyLogin(data):
+	ret = False
 	dpmt = data['database'].execute(
 			"SELECT CASE WHEN EXISTS ("+
-			" SELECT Department FROM Rooms WHERE"+
-			" Department = ?)"+
+			" SELECT * FROM Security_Personnel WHERE"+
+			" Username = ? AND Password = ?)"+
 			" THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT) END"
-			, [data['Department']])
+			, [data['username'],data['password']])
 	dpmt = [row[0] for row in dpmt.fetchall()]
-	return bool(dpmt[0])
+	if bool(dpmt[0]):
+		ret = True
+	if (data['username'] == data['user_conf']) and (data['password'] == data['pass_conf']):
+		ret = True
+	return ret
 
 def checkEmployeeAccess(data):
 	dpmt = data['database'].execute(
@@ -60,10 +65,16 @@ def checkEmployee(data, flag):
 	return bool(emp_id[0])
 
 def postEmployeeAcess(data):
-	data['database'].execute("INSERT INTO Employee_Access "
-			+"(Room_Id,Employee_Id) SELECT R.Room_Id, E.Employee_Id "
-			+"FROM Employee_Data E JOIN Rooms R on "
-			+"R.Department = ? and E.Employee_Id = ?" , [data['Department'],data['Employee_Id']])
+	if data['Department'] == 'security':
+		data['database'].execute("INSERT INTO Employee_Access "
+				+"(Room_Id,Employee_Id) SELECT R.Room_Id, E.Employee_Id "
+				+"FROM Employee_Data E JOIN Rooms R on "
+				+"E.Employee_Id = ?" , [data['Employee_Id']])
+	else:
+		data['database'].execute("INSERT INTO Employee_Access "
+				+"(Room_Id,Employee_Id) SELECT R.Room_Id, E.Employee_Id "
+				+"FROM Employee_Data E JOIN Rooms R on "
+				+"R.Department = ? and E.Employee_Id = ?" , [data['Department'],data['Employee_Id']])
 	data['database'].commit()
 
 def deleteEmployeeAccess(data):
@@ -96,14 +107,18 @@ def post(data):
 		message = 'Employee was successfully added'
 		if checkEmployee(data, 'post'):
 			message = 'Employee Id already exists'
-		elif not checkDepartment(data):
-			message = 'Invalid Department'
 		else:
-			data['database'].execute("insert into Employee_Data "
+			data['database'].execute("INSERT INTO Employee_Data "
 			+"(Employee_Name, Employee_Id, Nfc_Id, Department, Clearence_Level) "
-			+"values (?,?,?,?,?)", 
+			+"VALUES (?,?,?,?,?)", 
 					[data['Employee_Name'], data['Employee_Id'], data['Nfc_Id'], 
 						data['Department'], data['Clearence_Level']])
+			if data['Department'] == 'security':
+				data['database'].execute("INSERT INTO Security_Personnel "
+				+"(Employee_Id, Username, Password) "
+				+"VALUES (?,?,?)", 
+						[data['Employee_Id'], data['Employee_Name'], 
+							data['Password']])
 			data['database'].commit()
 			postEmployeeAcess(data)
 		return message

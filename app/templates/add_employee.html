@@ -11,11 +11,26 @@
 			<h2>Badge Number</h2>
 			<input type="text" size="30" name="Nfc_Id">
 			<h2>Department</h2>
-			<select name="Department">
+			<select onchange="dpmtSelected(this);" name="Department">
 				<option value="cse">CSE</option>
 				<option value="accounting">Accounting</option>
 				<option value="marketing">Marketing</option>
+				<option id="sec" value="security">Security</option>
 			</select>
+			<div id="pass" style="display:none;">
+				<h2>Password</h2>
+				<input type="text" size="30" name="Password">
+			</div>
+			<script>
+				function dpmtSelected(dpmt){
+					if(document.getElementById("sec").value == dpmt.value){
+						document.getElementById("pass").style.display = "block";
+					}
+					else{
+						document.getElementById("pass").style.display = "none";
+					}
+				}
+			</script>
 			<h2>Clearence Level</h2>
 			<select name="Clearence_Level">
 				<option value="1">1</option>
