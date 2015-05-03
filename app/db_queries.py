@@ -155,15 +155,16 @@ def update(data):
 		return 'There was a system error, Employee was not added'
 
 def getEmployeeList(database):
-	cur = database.execute("SELECT Employee_Name, Employee_Id, Department FROM Employee_Data")
-	empList = [(row[0], row[1], row[2]) for row in cur.fetchall()]
+	cur = database.execute(
+			"SELECT Employee_Name, Employee_Id, Department, Coordinate_X, Coordinate_Y FROM Employee_Data")
+	empList = [(row[0], row[1], row[2], row[3], row[4]) for row in cur.fetchall()]
 	return empList
 
 def getEmployee(data):
 	cur = data['database'].execute(
-			"SELECT Employee_Name, Employee_Id, Department FROM Employee_Data "
+			"SELECT Employee_Name, Employee_Id, Department, Coordinate_X, Coordinate_Y FROM Employee_Data "
 			+"WHERE Employee_Id = ?", [data['Employee_Id']])
-	empList = [(row[0], row[1], row[2]) for row in cur.fetchall()]
+	empList = [(row[0], row[1], row[2], row[3], row[4]) for row in cur.fetchall()]
 	return empList
 
 def getEmployeeLocation(data):

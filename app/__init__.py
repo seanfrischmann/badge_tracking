@@ -81,7 +81,7 @@ def post_nfcScan():
 		ret = query.checkEmployeeAccess(data)
 	else:
 		ret = False
-	return ret
+	return jsonify(result=ret)
 
 @app.route('/post_wifiScan', methods=['POST'])
 def post_wifiScan():
