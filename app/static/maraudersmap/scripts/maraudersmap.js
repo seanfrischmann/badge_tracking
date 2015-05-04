@@ -231,7 +231,7 @@ function fillEmployees(){
 }  
 
 function fetchEmployees(){
-    $.getJSON("http://localhost:5000/get_employeeList", function(data) {
+    $.getJSON("http://54.88.98.253/get_employeeList", function(data) {
         employees = data.empList;
     });
 }  
