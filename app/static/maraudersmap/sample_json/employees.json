@@ -1,0 +1,22 @@
+{
+  "employees": [
+    {
+      "name": "Peyton Manning",
+      "location": "kitchen",
+      "x": "43",
+      "y": "55"
+    },
+    {
+      "name": "Brett Favre",
+      "location": "living room",
+      "x": "88",
+      "y": "99"
+    },
+    {
+      "name": "Ben Roethlisberger",
+      "location": "Bathroom",
+      "x": "150",
+      "y": "300"
+    }
+  ]
+}

@@ -1,9 +1,0 @@
-<div id="canvascont">
-                        <canvas id="a" width="300" height="300"></canvas>
-                        <script>
-                            var a = document.getElementById("a");
-                            var b = a.getContext("2d");
-                            b.fillStyle = "#FF0000";
-                            b.fillRect(2, 2, 10, 10); 
-                        </script>
-</div>

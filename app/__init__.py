@@ -10,6 +10,7 @@
 import sqlite3
 import app.db_queries as query
 import app.coordinates as coor
+from app.flask_util_js import FlaskUtilJs
 from contextlib import closing
 from flask import Flask, request, session, g, redirect, url_for, \
 		abort, render_template, flash, jsonify
@@ -159,6 +160,14 @@ def logout():
 	session.pop('logged_in',None)
 	flash('You were logged out')
 	return redirect(url_for('index'))
+
+########Jake's Code########
+
+@app.route('/app')
+def indexdos():
+	return redirect(url_for('static', filename='maraudersmap/index.html'))
+
+###########################
 
 if __name__ == '__main__':
 	app.run()

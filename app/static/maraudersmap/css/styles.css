@@ -1,0 +1,325 @@
+            #container{
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                min-height: 600px;
+                max-width: 1920px;
+                max-height: 1080;
+                min-width: 800px;
+                top:0; bottom:0; left:0;
+                background-color:white;
+font-family: Optima,Segoe,"Segoe UI",Candara,Calibri,Arial,sans-serif;
+                cursor:default
+            }
+            #header{
+                position:absolute;
+                top:0; bottom:0; left:0%;
+                width: 100%;
+                height: 60px;
+
+                background-image: url("../images/bg/cartographer/cartographer/cartographer.png") ;
+                border-bottom: 1px solid grey;
+                -moz-box-shadow:0px 0px 8px #000000;
+                -webkit-box-shadow:0px 0px 8px #000000;
+                box-shadow:0px 0px 8px #000000;
+                padding: 0px;
+            }
+
+            #headerImg{
+                display: inline-block;
+                //min-width: 200px;
+                width: 20%;
+                margin-right: 40px;
+                margin-left: 20px;
+
+                vertical-align: middle;      
+            }
+
+
+
+
+            #nav{
+                top: 0px;
+                position: absolute;
+                display: inline-block;
+                max-height: 100px;
+                width: 70%;
+                height: 100%;
+                min-width: 500px;
+                margin: 0px;
+                padding: 0px;
+                margin-top: 0px;
+            }
+
+            #nav ul{
+                list-style: none;
+                width: 50%;
+                margin: 0px;
+                padding: 0px;
+                margin-top: 6px; 
+                vertical-align: center;
+               
+               
+
+            }
+            
+            #nav li{                            
+                display: inline-block;
+                border: 0px solid black;
+                
+                width: 90px;
+                height: 100%;
+                border-bottom: 0px;
+                border-top: 0px;
+                border-left: 0px;
+                max-width: 220px;
+                min-width: 70px;
+            }
+             #nav li:last-child{                            
+                 border-right: 0px;
+
+            }
+
+            #nav li img{
+                padding-top: 0px;
+                padding-left: 30px;
+                padding-right: 30px;
+                padding-bottom: 0px;
+                max-width: 100px;
+                min-width: 20px;
+                width: 30px;
+                display: inline-block;
+                margin: 0px;
+                vertical-align: middle;
+
+            }
+
+            #nav li a{
+                //width:100px;
+                display: inline-block;
+                text-decoration: none;
+                text-align: center;
+                color: black;
+                margin: 0px;
+            }
+
+
+            #nav li:hover{
+             //background-color: #FFFFCC;
+             color:white;
+              -webkit-filter: invert(100%);
+              -moz-filter: invert(100%);
+                filter: invert(100%);
+                
+
+            }
+
+
+
+
+
+            #nav li img:hover{
+             //-webkit-filter: invert(100%);
+            }
+
+
+
+#logout {
+ 
+                    position: absolute;
+                top: 4; right: 10;
+  background-image: url(../images/icons/1429524444_common_logout_signout_exit_-128.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+  font-family: Georgia;
+  color: #ffffff;
+  font-size: 14px;
+  border: solid #878069 0px;
+  text-decoration: none;
+    text-align: center;
+    width: 30px;
+    height: 50px;
+   
+    
+}
+
+#logout:hover {
+  border: solid white 0px;
+
+  text-decoration: none;
+                  -webkit-filter: invert(100%);
+              -moz-filter: invert(100%);
+                filter: invert(100%);
+}
+
+
+.whiteColor {
+    background-color: rgba(255, 255, 255, 0.2);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+
+            
+            .helper {
+                display: inline-block;
+                vertical-align: middle;
+                height: 100%;
+            }
+
+
+
+
+            #a{
+                position:absolute;
+                top:0; bottom:0; left:0%;
+/*                width: 100%;
+                height: 100%;*/
+                background-color: white;
+            }
+
+
+
+
+
+
+            #content{
+                position:absolute;
+                top:60; bottom:0; left:0;
+                width: 100%;
+                min-width: 600px;
+                height: calc(100%-60px);
+               
+                background-color: white;
+            }
+
+
+            #canvascont{
+
+                position: relative;
+                height:100%; 
+                width: 80%; 
+                left: 20%;
+                overflow:auto; 
+               
+            }
+                
+            #mapsidebar{
+
+                position: absolute;
+                width: 20%;
+                height: 100%;
+                padding-left: 0px;
+                top:0; bottom: 0; left:0;
+                background-color: lightgrey;
+                border-right: 1px solid black;
+
+            }
+
+             #mapsidebar ul{    
+                margin-left: 10px;
+                margin-right: 10px;
+
+                padding-left: 0px;
+ 
+            }
+
+            #mapsidebar li{ 
+                padding-left: 4px;   
+                list-style: none; 
+                border: 0px solid black;
+                border-bottom: 1px solid gray;                      
+                background-color: none;
+                color: black;
+                width: 100%;
+            }
+
+            #mapsidebar li:hover{  
+                            padding-left: 4px;   
+  
+                list-style: none; 
+                border: 0px solid black;
+                border-bottom: 1px solid gray;                      
+                background-color: #dabb96;
+                color: black;
+                width: 100%;
+            }
+
+            
+
+            .highlightedItem{
+                background-color: #a18461;
+                })
+
+
+
+
+
+/*Employee Table Styles*/
+
+.tablecont{
+    width:100%;
+    position: absolute;
+    top: 0%; left: 0%;
+    height: 100%%;
+    overflow-y: auto;
+    padding-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center; 
+  background: -webkit-radial-gradient(white, black); /* Safari 5.1 to 6.0 */
+  background: -o-radial-gradient(white, black); /* For Opera 11.6 to 12.0 */
+  background: -moz-radial-gradient(white, black); /* For Firefox 3.6 to 15 */
+  background: radial-gradient(white, black 95%); /* Standard syntax */
+}
+
+table{
+    width: 100%;
+
+}
+
+#employeetable {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#employeetable td, #employeetable th {
+    font-size: 1em;
+    border: 1px solid #a18461;
+    padding: 3px 7px 2px 7px;
+}
+#employeetable td{
+    background-color: #dabb96;
+}
+
+#employeetable th {
+    font-size: 1.1em;
+    text-align: left;
+    padding-top: 5px;
+    padding-bottom: 4px;
+    background-color: #a18461;
+    color: #ffffff;
+}
+
+#employeetable th a{
+        color: #ffffff;
+        text-decoration: none;
+
+    
+}
+
+
+
+@media only screen and (max-width: 600px) {
+
+}
+        
