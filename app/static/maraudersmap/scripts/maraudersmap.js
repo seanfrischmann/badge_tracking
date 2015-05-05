@@ -106,7 +106,7 @@ function draw(){
             drawEmployee(ctx, 0,0);
         }
         else{
-            drawEmployee(ctx, parseInt([selectedEmployeeIndex][3]),parseInt([selectedEmployeeIndex][4]));
+            drawEmployee(ctx, parseInt(employees[selectedEmployeeIndex][3]),parseInt(employees[selectedEmployeeIndex][4]));
         }
     }
     else{
@@ -117,7 +117,7 @@ function draw(){
                 drawEmployee(ctx, 0,0);
             }
             else{
-                drawEmployee(ctx, parseInt([selectedEmployeeIndex][3]),parseInt([selectedEmployeeIndex][4]));
+                drawEmployee(ctx, parseInt(employees[selectedEmployeeIndex][3]),parseInt(employees[selectedEmployeeIndex][4]));
             }        
         }
     }
