@@ -100,8 +100,9 @@ function draw(){
     drawBuilding(ctx);
     console.log(selectedEmployeeIndex);
     if(selectedEmployeeIndex >= 0){
-        if(parseInt(employees[selectedEmployeeIndex][3]) == null || parseInt(employees[selectedEmployeeIndex][4]) == null ||
-            parseInt(employees[selectedEmployeeIndex][3]) == "null" || parseInt(employees[selectedEmployeeIndex][4]) == "null"){
+        console.log(employees[selectedEmployeeIndex][4])
+        if(employees[selectedEmployeeIndex][3] == null || employees[selectedEmployeeIndex][4] == null ||
+            employees[selectedEmployeeIndex][3] == "null" || employees[selectedEmployeeIndex][4] == "null"){
             drawEmployee(ctx, 0,0);
         }
         else{
@@ -111,8 +112,8 @@ function draw(){
     else{
         var i = 0;
         for(i=0; i < employees.length; i++){
-            if(parseInt(employees[selectedEmployeeIndex][3]) == null || parseInt(employees[selectedEmployeeIndex][4]) == null ||
-              parseInt(employees[selectedEmployeeIndex][3]) == "null" || parseInt(employees[selectedEmployeeIndex][4]) == "null"){
+            if(employees[selectedEmployeeIndex][3] == null || employees[selectedEmployeeIndex][4] == null ||
+              employees[selectedEmployeeIndex][3] == "null" || employees[selectedEmployeeIndex][4] == "null"){
                 drawEmployee(ctx, 0,0);
             }
             else{
