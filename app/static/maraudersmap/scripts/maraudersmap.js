@@ -196,7 +196,7 @@ function myFunc() {
     //display employee on map(needs to refresh)
     //alert(obj.data("id"));
 
-    selectedEmployeeIndex = obj.data("id");
+    selectedEmployeeIndex = obj.data("index");
     draw();
 }
 
@@ -206,22 +206,22 @@ function fillEmployees(){
     $("#mapsidebar ul").empty();
 
     if(selectedEmployeeIndex == -1){
-        var insert = "<li data-id='-1' class='highlightedItem'><b>ALL EMPLOYEES</b></li>";
+        var insert = "<li data-index='-1' class='highlightedItem'><b>ALL EMPLOYEES</b></li>";
         $("#mapsidebar ul").append(insert);
     }
     else{
-        var insert = "<li data-id='-1'><b>ALL EMPLOYEES</b></li>";
+        var insert = "<li data-index='-1'><b>ALL EMPLOYEES</b></li>";
         $("#mapsidebar ul").append(insert);
     }
 
     var i = 0;
     for(i = 0; i< employees.length; i++){
         if(employees[i][1] == selectedEmployeeIndex){
-            var insert = "<li data-id='"+employees[i][1] + "' + class='highlightedItem'>" +  employees[i][0] + "</li>";
+            var insert = "<li data-index='"+i + "' + class='highlightedItem'>" +  employees[i][0] + "</li>";
             $("#mapsidebar ul").append(insert);
         }
         else{
-            var insert = "<li data-id='"+employees[i][1] + "'>" +  employees[i][0] + "</li>";
+            var insert = "<li data-index='"+i + "'>" +  employees[i][0] + "</li>";
             $("#mapsidebar ul").append(insert);
         }
     }
