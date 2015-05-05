@@ -100,23 +100,23 @@ function draw(){
     drawBuilding(ctx);
     console.log(selectedEmployeeIndex);
     if(selectedEmployeeIndex >= 0){
-        if(employees[selectedEmployeeIndex][3] == null || employees[selectedEmployeeIndex][4] == null ||
-            employees[selectedEmployeeIndex][3] == "null" || employees[selectedEmployeeIndex][4] == "null"){
+        if(parseInt(employees[selectedEmployeeIndex][3]) == null || parseInt(employees[selectedEmployeeIndex][4]) == null ||
+            parseInt(employees[selectedEmployeeIndex][3]) == "null" || parseInt(employees[selectedEmployeeIndex][4]) == "null"){
             drawEmployee(ctx, 0,0);
         }
         else{
-            drawEmployee(ctx, [selectedEmployeeIndex][3],[selectedEmployeeIndex][4]);
+            drawEmployee(ctx, parseInt([selectedEmployeeIndex][3]),parseInt([selectedEmployeeIndex][4]));
         }
     }
     else{
         var i = 0;
         for(i=0; i < employees.length; i++){
-            if(employees[selectedEmployeeIndex][3] == null || employees[selectedEmployeeIndex][4] == null ||
-            employees[selectedEmployeeIndex][3] == "null" || employees[selectedEmployeeIndex][4] == "null"){
+            if(parseInt(employees[selectedEmployeeIndex][3]) == null || parseInt(employees[selectedEmployeeIndex][4]) == null ||
+              parseInt(employees[selectedEmployeeIndex][3]) == "null" || parseInt(employees[selectedEmployeeIndex][4]) == "null"){
                 drawEmployee(ctx, 0,0);
             }
             else{
-                drawEmployee(ctx, [selectedEmployeeIndex][3],[selectedEmployeeIndex][4]);
+                drawEmployee(ctx, parseInt([selectedEmployeeIndex][3]),parseInt([selectedEmployeeIndex][4]));
             }        
         }
     }
@@ -231,7 +231,7 @@ function fillEmployees(){
 }  
 
 function fetchEmployees(){
-    $.getJSON("http://54.88.98.253/get_employeeList", function(data) {
+    $.getJSON("http://marauder.homeip.net/get_employeeList", function(data) {
         employees = data.empList;
     });
 }  

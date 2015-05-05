@@ -165,6 +165,8 @@ def logout():
 
 @app.route('/app')
 def indexdos():
+	if not session.get('logged_in'):
+		abort(401)
 	return redirect(url_for('static', filename='maraudersmap/index.html'))
 
 ###########################
