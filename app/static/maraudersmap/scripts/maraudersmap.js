@@ -112,12 +112,12 @@ function draw(){
     else{
         var i = 0;
         for(i=0; i < employees.length; i++){
-            if(employees[selectedEmployeeIndex][3] == null || employees[selectedEmployeeIndex][4] == null ||
-              employees[selectedEmployeeIndex][3] == "null" || employees[selectedEmployeeIndex][4] == "null"){
+            if(employees[i][3] == null || employees[i][4] == null ||
+              employees[i][3] == "null" || employees[i][4] == "null"){
                 drawEmployee(ctx, 0,0);
             }
             else{
-                drawEmployee(ctx, parseInt(employees[selectedEmployeeIndex][3]),parseInt(employees[selectedEmployeeIndex][4]));
+                drawEmployee(ctx, parseInt(employees[i][3]),parseInt(employees[i][4]));
             }        
         }
     }
@@ -259,9 +259,9 @@ $(document).ready(function(){
                     //draw();
                     setInterval(function(){
                         fetchEmployees();
-                        fillEmployees();
-                        //draw();
-                    }, 5000);
+                        //fillEmployees();
+                        draw();
+                    }, 1000);
                 });   
 
     
@@ -276,9 +276,9 @@ $(document).ready(function(){
                     draw();
                     setInterval(function(){
                         fetchEmployees();
-                        fillEmployees();
+                        //fillEmployees();
                         draw();
-                    }, 5000);                                       // this line changed
+                    }, 1000);                                       // this line changed
               
                 });                                                // this line changed
 

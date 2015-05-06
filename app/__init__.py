@@ -86,17 +86,18 @@ def post_nfcScan():
 
 @app.route('/post_wifiScan', methods=['POST'])
 def post_wifiScan():
-	data = {'database':g.db,
-			'Token':request.form['Token'],
-			'Request_Name':'Wifi_Scan',
-			'Employee_Id':request.form['Employee_Id'], 
-			'trimmedResults':request.form['trimmedResults']}
+	data = request.get_json()
+	data['database'] = g.db
+	data['Request_Name'] = 'Wifi_Scan'
 	if not query.checkApiToken(data):
-		abort(401)
-	coordinates = coor.coordinates(data['trimmedResults'])
-	data['Coordinate_X'] = coordinates[0]
-	data['Coordinate_Y'] = coordinates[1]
-	query.updateEmployeeLocation(data)
+		ret = False
+	else:
+		coordinates = coor.coordinates(data['trimmedResults'])
+		data['Coordinate_X'] = coordinates[0]
+		data['Coordinate_Y'] = coordinates[1]
+		query.updateEmployeeLocation(data)
+		ret = True
+	return jsonify(scan=ret)
 
 @app.route('/update_employee', methods=['POST'])
 def update_employee():

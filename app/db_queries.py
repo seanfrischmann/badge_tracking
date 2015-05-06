@@ -92,6 +92,9 @@ def delete(data):
 			data['database'].execute(
 					"DELETE FROM Employee_Data WHERE Employee_Name = ?"+
 					" AND Employee_Id = ?", [data['Employee_Name'], data['Employee_Id']])
+			data['database'].execute(
+					"DELETE FROM Security_Personnel WHERE Username = ?"+
+					" AND Employee_Id = ?", [data['Employee_Name'], data['Employee_Id']])
 			data['database'].commit()
 			deleteEmployeeAccess(data)
 		else:
